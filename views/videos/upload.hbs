@@ -1,0 +1,31 @@
+<div class="max-w-md mx-auto mt-12 bg-white p-8 rounded-lg shadow space-y-6">
+    <header class="mb-6">
+        <h2 class="text-2xl font-light text-gray-900">Upload Video</h2>
+        <p class="mt-2 text-gray-500">Share your bass guitar video with the community</p>
+    </header>
+    <form action="/videos/upload" method="POST" enctype="multipart/form-data" class="space-y-5">
+        <div>
+            <label for="title" class="block text-sm font-medium text-gray-700">Title</label>
+            <input type="text" name="title" id="title" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-gray-900 focus:border-gray-900">
+        </div>
+        <div>
+            <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
+            <textarea name="description" id="description" rows="3" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-gray-900 focus:border-gray-900"></textarea>
+        </div>
+        <div>
+            <label for="video" class="block text-sm font-medium text-gray-700">Video file</label>
+            <input type="file" name="file" id="video" accept="video/*" class="mt-1 block w-full text-gray-700">
+        </div>
+        <button type="submit" class="w-full py-2 px-4 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors">
+            Upload Video
+        </button>
+    </form>
+    <div class="pt-4">
+        <a href="/videos" class="text-sm text-gray-600 hover:text-gray-900 flex items-center gap-1">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            </svg>
+            Back to videos
+        </a>
+    </div>
+</div>
