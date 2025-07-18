@@ -8,11 +8,13 @@ import { UploadModule } from './upload/upload.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './user/user.module';
 import { User } from './user/user.entity';
+import { Video } from './video/video.entity';
 
 @Module({
   imports: [
-    VideoModule,
     UploadModule,
+    UserModule,
+    VideoModule,
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'localhost',
@@ -20,12 +22,11 @@ import { User } from './user/user.entity';
       username: 'root',
       password: 'root',
       database: 'bass_buddy',
-      entities: [User],
+      entities: [User, Video],
       synchronize: true,
     }),
-    UserModule,
   ],
-  controllers: [AppController, VideoController],
-  providers: [AppService, VideoService],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}

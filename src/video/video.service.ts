@@ -1,30 +1,24 @@
 import { Injectable } from '@nestjs/common';
-import { Video } from './video.interface';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Video } from './video.entity';
 
 @Injectable()
 export class VideoService {
-  private readonly videos: Video[] = [
-    {
-      id: 1,
-      title: 'Video 1',
-      description: 'Description 1',
-      link: 'https://example.com/video1',
-    },
-    {
-      id: 2,
-      title: 'Video 2',
-      description: 'Description 2',
-      link: 'https://example.com/video2',
-    },
-    {
-      id: 3,
-      title: 'Video 3',
-      description: 'Description 3',
-      link: 'https://example.com/video3',
-    },
-  ];
+  constructor(
+    @InjectRepository(Video)
+    private videosRepository: Repository<Video>,
+  ) {}
 
-  findAll() {
-    return this.videos;
+  findAll(): Promise<Video[]> {
+    return this.videosRepository.find();
+  }
+
+  findOne(id: number): Promise<Video | null> {
+    return this.videosRepository.findOneBy({ id });
+  }
+
+  async remove(id: number): Promise<void> {
+    await this.videosRepository.delete(id);
   }
 }

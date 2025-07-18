@@ -1,7 +1,9 @@
 import {
+  Body,
   Controller,
   Get,
   Post,
+  Req,
   Res,
   UploadedFile,
   UseInterceptors,
@@ -10,6 +12,7 @@ import { VideoService } from './video.service';
 import { Response } from 'express';
 import { UploadService } from 'src/upload/upload.service';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { CreateVideo } from 'src/dto/create-video/create-video';
 
 @Controller('videos')
 export class VideoController {
@@ -20,7 +23,28 @@ export class VideoController {
 
   @Get()
   findAll(@Res() res: Response) {
-    const videos = this.videoService.findAll();
+    // const videos = this.videoService.findAll();
+
+    const videos = [
+      {
+        id: 1,
+        title: 'Video 1',
+        description: 'Description 1',
+        link: 'http://example.com/video1',
+      },
+      {
+        id: 2,
+        title: 'Video 2',
+        description: 'Description 2',
+        link: 'http://example.com/video2',
+      },
+      {
+        id: 3,
+        title: 'Video 3',
+        description: 'Description 3',
+        link: 'http://example.com/video3',
+      },
+    ];
 
     return res.render('videos', { videos, title: 'Your videos' });
   }
@@ -32,12 +56,19 @@ export class VideoController {
 
   @Post('upload')
   @UseInterceptors(FileInterceptor('file'))
-  postUpload(@UploadedFile() file: Express.Multer.File, @Res() res: Response) {
-    if (!this.uploadService.upload(file)) {
-      return res
-        .status(500)
-        .json({ message: 'File upload failed', data: false });
-    }
+  postUpload(
+    @UploadedFile() file: Express.Multer.File,
+    @Body() createVideo: CreateVideo,
+    @Res() res: Response,
+  ) {
+    const fileName = this.uploadService.upload(file);
+
+    const videoData = {
+      ...createVideo,
+      link: fileName,
+    };
+
+    // Here save the videoData to the database
 
     return res
       .status(201)
