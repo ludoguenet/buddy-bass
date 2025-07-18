@@ -22,7 +22,7 @@ import { Video } from './video/video.entity';
       username: 'root',
       password: 'root',
       database: 'bass_buddy',
-      entities: [User, Video],
+      autoLoadEntities: true,
       synchronize: true,
     }),
   ],
