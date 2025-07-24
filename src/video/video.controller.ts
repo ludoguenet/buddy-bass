@@ -30,19 +30,19 @@ export class VideoController {
         id: 1,
         title: 'Video 1',
         description: 'Description 1',
-        link: 'http://example.com/video1',
+        path: 'http://example.com/video1',
       },
       {
         id: 2,
         title: 'Video 2',
         description: 'Description 2',
-        link: 'http://example.com/video2',
+        path: 'http://example.com/video2',
       },
       {
         id: 3,
         title: 'Video 3',
         description: 'Description 3',
-        link: 'http://example.com/video3',
+        path: 'http://example.com/video3',
       },
     ];
 
@@ -65,7 +65,7 @@ export class VideoController {
 
     const videoData = {
       ...createVideo,
-      link: fileName,
+      path: fileName,
     };
 
     // Here save the videoData to the database

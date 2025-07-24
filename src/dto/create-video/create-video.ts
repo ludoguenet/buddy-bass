@@ -9,5 +9,5 @@ export class CreateVideo {
 
   @IsString()
   @IsOptional()
-  link: string;
+  path: string;
 }

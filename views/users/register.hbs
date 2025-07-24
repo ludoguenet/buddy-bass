@@ -1,0 +1,39 @@
+<div class="max-w-md mx-auto mt-12 bg-white p-8 rounded-lg shadow space-y-6">
+    <header class="mb-6">
+        <h2 class="text-2xl font-light text-gray-900">Register User</h2>
+        <p class="mt-2 text-gray-500">Create a new user account</p>
+    </header>
+
+    {{#if error}}
+        <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-md">
+            {{error}}
+        </div>
+    {{/if}}
+
+    <form method="POST" action="/users/register" class="space-y-5">
+        <div>
+            <label for="firstName" class="block text-sm font-medium text-gray-700">First Name</label>
+            <input type="text" name="firstName" id="firstName" value="{{formData.firstName}}" required
+                   class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-gray-900 focus:border-gray-900">
+        </div>
+
+        <div>
+            <label for="lastName" class="block text-sm font-medium text-gray-700">Last Name</label>
+            <input type="text" name="lastName" id="lastName" value="{{formData.lastName}}" required
+                   class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-gray-900 focus:border-gray-900">
+        </div>
+
+        <button type="submit" class="w-full py-2 px-4 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors">
+            Register User
+        </button>
+    </form>
+
+    <div class="pt-4">
+        <a href="/users" class="text-sm text-gray-600 hover:text-gray-900 flex items-center gap-1">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            </svg>
+            Back to users
+        </a>
+    </div>
+</div>

@@ -13,7 +13,7 @@ export class Video {
   description: string;
 
   @Column()
-  link: string;
+  path: string;
 
   @ManyToOne((type) => User, (user) => user.videos)
   user: User;
