@@ -2,6 +2,8 @@ import {
   Body,
   Controller,
   Get,
+  HttpException,
+  HttpStatus,
   Post,
   Req,
   Res,
@@ -13,10 +15,12 @@ import { Response } from 'express';
 import { UploadService } from 'src/upload/upload.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { CreateVideo } from 'src/dto/create-video/create-video';
+import { UserService } from 'src/user/user.service';
 
 @Controller('videos')
 export class VideoController {
   constructor(
+    private readonly userService: UserService,
     private readonly videoService: VideoService,
     private readonly uploadService: UploadService,
   ) {}
@@ -56,7 +60,7 @@ export class VideoController {
 
   @Post('upload')
   @UseInterceptors(FileInterceptor('file'))
-  postUpload(
+  async postUpload(
     @UploadedFile() file: Express.Multer.File,
     @Body() createVideo: CreateVideo,
     @Res() res: Response,
@@ -69,6 +73,14 @@ export class VideoController {
     };
 
     // Here save the videoData to the database
+    // let's mock user
+    const user = await this.userService.findOne(1);
+
+    if (!user) {
+      throw new HttpException('User not found', HttpStatus.BAD_REQUEST);
+    }
+
+    await this.videoService.createForUser(videoData, user);
 
     return res
       .status(201)

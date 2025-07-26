@@ -4,9 +4,11 @@ import { VideoService } from './video.service';
 import { UploadModule } from 'src/upload/upload.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Video } from './video.entity';
+import { UserService } from 'src/user/user.service';
+import { UserModule } from 'src/user/user.module';
 
 @Module({
-  imports: [UploadModule, TypeOrmModule.forFeature([Video])],
+  imports: [UploadModule, UserModule, TypeOrmModule.forFeature([Video])],
   controllers: [VideoController],
   providers: [VideoService],
 })

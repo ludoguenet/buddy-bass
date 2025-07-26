@@ -2,6 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Video } from './video.entity';
+import { CreateVideo } from 'src/dto/create-video/create-video';
+import { User } from 'src/user/user.entity';
 
 @Injectable()
 export class VideoService {
@@ -12,6 +14,17 @@ export class VideoService {
 
   findAll(): Promise<Video[]> {
     return this.videosRepository.find();
+  }
+
+  async createForUser(
+    createVideo: CreateVideo,
+    user: User,
+  ): Promise<Video | null> {
+    const video = this.videosRepository.create(createVideo);
+    video.user = user;
+    const savedVideo = await this.videosRepository.save(video);
+
+    return savedVideo;
   }
 
   findOne(id: number): Promise<Video | null> {
